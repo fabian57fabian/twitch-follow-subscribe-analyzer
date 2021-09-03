@@ -32,3 +32,13 @@ The script will open the video and check one each 27 frames (configurable parame
 The check is performed with `cv2.matchTemplate` method (acting like an object detector) and filtering only results above threshold.
 
 IF at least one match is found, then the template was detected on image.
+
+## Test
+
+The repo contains 2 images with and without the subscription banner and the banner template as example.
+
+Run following code to check the results:
+
+```bash
+python3 test_match.py
+```
