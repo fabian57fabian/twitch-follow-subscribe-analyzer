@@ -7,9 +7,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from image_matcher import check_subscribed
 
-save_each_print = True
 
-def find_subscribers(filename: str, template_fn: str, threshold: float = 0.5, bbox: list = None):
+def find_subscribers(filename: str, template_fn: str, threshold: float = 0.5, bbox: list = None, save_each_print:bool=False):
     template = cv2.imread(template_fn, cv2.IMREAD_COLOR)
     # Open video
     vidcap = cv2.VideoCapture(filename)
@@ -41,7 +40,7 @@ def find_subscribers(filename: str, template_fn: str, threshold: float = 0.5, bb
             print("{}: {}%".format(datetime.datetime.now(), count / percent_10))
             if save_each_print:
                 df = pd.DataFrame(array_presence, columns=["state"])
-                df.to_csv(filename + ".csv")
+                df.to_csv(filename + "_detect.csv")
         # process image
         if count % skip_each_frames == 0:
             is_subscribe = array_presence[-1]
@@ -57,7 +56,6 @@ def find_subscribers(filename: str, template_fn: str, threshold: float = 0.5, bb
     array_presence = array_presence[1:]
     # Save results to csv
     df = pd.DataFrame(array_presence, columns=["state"])
-    df.to_csv(filename + ".csv")
     return df
 
 
@@ -123,17 +121,19 @@ if __name__ == '__main__':
     if args.box is not None and "|" in args.box:
         box = parse_box(args.box)
     # Load csv or execute detection
-    load_csv = True
+    execute_detection = True
     df = None
     if args.load:
-        fn = args.source + ".csv"
+        fn = args.source + "_detect.csv"
         if not os.path.isfile(fn):
             print("This video was not detected because {} does not exist!".format(fn))
             print("Executing detected first...")
         else:
             df = pd.read_csv(fn)
-            load_csv = False
-    if load_csv:
+            execute_detection = False
+    if execute_detection:
         df = find_subscribers(args.source, args.template, args.th, box)
+        df.to_csv(args.source + "_detect.csv")
     df = filter_raw_detection(df)
+    df.to_csv(args.source + "_detect_filtered.csv")
     plot(df)
