@@ -1,4 +1,4 @@
-from find_subscribers import check_subscribed
+from image_matcher import check_subscribed
 import cv2
 
 if __name__ == '__main__':

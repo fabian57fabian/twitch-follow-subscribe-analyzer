@@ -3,9 +3,7 @@ import argparse
 import numpy as np
 import cv2
 import pandas as pd
-
-def check_subscribed(image, template, threshold= 0.65):
-    return False
+from image_matcher import check_subscribed
 
 def find_subscribers(filename: str, template_fn: str):
     template = cv2.imread(template_fn, cv2.IMREAD_COLOR)
