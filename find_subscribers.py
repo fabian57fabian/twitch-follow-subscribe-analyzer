@@ -57,6 +57,7 @@ def find_subscribers(filename: str, template_fn: str, threshold: float = 0.5, bb
 
 
 def parse_box(b):
+    box = None
     parts = b.split('|')
     if len(parts) >= 4:
         try:
