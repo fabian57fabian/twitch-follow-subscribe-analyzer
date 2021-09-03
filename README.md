@@ -6,7 +6,7 @@ This tool will analyze a fideo with a template and **create a plot with subscrib
 
 This softare requires python3 with:
 - **OpenCv** (install with `python3 -m pip install opencv-python` or separately)
-- Other necessary **libs** with `python3 -m pip install numpy pandas`
+- Other necessary **libs** with `python3 -m pip install numpy matplotlib pandas`
 
 (With windows use the same command in Command Prompt using python3.exe instead of python3, or full python3.exe path)
 
