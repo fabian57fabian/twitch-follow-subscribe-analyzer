@@ -23,6 +23,8 @@ python3 find_subscribers.py
           --th=0.75
 ```
 
+if the area where template comes out is the same, use an additional `--box="xmin|xmax|ymin|ymax"` parameter.
+
 You can also lower the threshold if results do not match.
 
 ## Description
