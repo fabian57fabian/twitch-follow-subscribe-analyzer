@@ -53,6 +53,7 @@ def find_subscribers(filename: str, template_fn: str, threshold: float = 0.5, bb
     # Save results to csv
     df = pd.DataFrame(array_presence)
     df.to_csv(filename + ".csv")
+    return df
 
 
 def parse_box(b):
@@ -65,6 +66,16 @@ def parse_box(b):
         except:
             box = None
     return box
+
+
+def plot(df):
+    df.plot()
+
+
+def filter_raw_detection(df):
+    # TODO: filter large consecutive ones with only one one and others zero
+    return df
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -85,4 +96,6 @@ if __name__ == '__main__':
     box = None
     if args.box is not None and "|" in args.box:
         box = parse_box(args.box)
-    find_subscribers(args.source, args.template, args.th, box)
+    df = find_subscribers(args.source, args.template, args.th, box)
+    df = filter_raw_detection(df)
+    plot(df)
